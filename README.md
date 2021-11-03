@@ -24,4 +24,12 @@ http://127.0.0.1:8080/index.html
 http://127.0.0.1:8080/phpinfo.php
 
 * Laravelをインストール
+"feat laravel install"
+[mac] $ docker compose exec app bash
+[app] $ composer create-project --prefer-dist "laravel/laravel=8.*" .
+[app] $ php artisan -V
+Laravel Framework 8.40.0
+[app] $ exit
+http://127.0.0.1:8080/
+
 ""
