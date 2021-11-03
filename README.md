@@ -63,3 +63,18 @@ mysql  Ver 8.0.24 for Linux on x86_64 (MySQL Community Server - GPL)
 MySQLに接続拒否されたエラーなので、backend/.env のDB接続設定を修正する。
 [mac] $ vim backend/.env
 [mac] $ vim backend/.env.example
+[mac] $ docker compose exec app bash
+[app] $ php artisan migrate
+//試しにデータ作成
+[app] php artisan tinker
+$user = new App\Models\User();
+$user->name = 'phper';
+$user->email = 'phper@example.com';
+$user->password = Hash::make('secret');
+$user->save();
+Exit:  Ctrl+D
+
+[mac] $ docker compose exec db bash
+[db] $ mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE
+[mysql] > SELECT * FROM users;
+Exit:  Ctrl+D
