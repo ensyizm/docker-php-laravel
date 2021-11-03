@@ -32,4 +32,34 @@ Laravel Framework 8.40.0
 [app] $ exit
 http://127.0.0.1:8080/
 
-""
+
+* MySQLデータベースコンテナを作成
+.
+├── infra
+│   └── mysql
+│       ├── Dockerfile
+│       └── my.cnf # MySQLの設定ファイル
+└── docker-compose.yml
+
+"docker compose down"
+[mac] $ mkdir infra/mysql
+[mac] $ touch infra/mysql/Dockerfile
+[mac] $ touch infra/mysql/my.cnf
+[mac] $ docker compose up -d
+[mac] $ docker compose ps
+            Name                          Command              State           Ports        
+--------------------------------------------------------------------------------------------
+docker-laravel-handson_app_1   docker-php-entrypoint php-fpm   Up      9000/tcp             
+docker-laravel-handson_db_1    docker-entrypoint.sh mysqld     Up      3306/tcp, 33060/tcp  
+docker-laravel-handson_web_1   nginx -g daemon off;            Up      0.0.0.0:8080->80/tcp
+
+[mac] $ docker compose exec db mysql -V
+mysql  Ver 8.0.24 for Linux on x86_64 (MySQL Community Server - GPL)
+[mac] $ docker compose exec app bash
+[app] $ php artisan migrate
+    //エラー起こる
+[app] $ exit
+
+MySQLに接続拒否されたエラーなので、backend/.env のDB接続設定を修正する。
+[mac] $ vim backend/.env
+[mac] $ vim backend/.env.example
