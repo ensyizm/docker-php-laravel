@@ -78,3 +78,35 @@ Exit:  Ctrl+D
 [db] $ mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE
 [mysql] > SELECT * FROM users;
 Exit:  Ctrl+D
+
+
+# Docker環境の再構築手順
+## Docker環境の破棄
+コンテナの停止、ネットワーク・名前付きボリューム・コンテナイメージ、未定義コンテナを削除
+[mac] $ docker-compose down --rmi all --volumes --remove-orphans
+
+[mac] $ cd ..
+[mac] $ rm -rf docker-laravel?
+
+* GitHubからリポジトリをクローン
+[mac] $ git clone git@github.com:@@@/docker-laravel.git
+[mac] $ cd docker-laravel
+[mac] $ docker compose up -d --build
+http://127.0.0.1:8080/
+/work/public/../vendor/autoload.php を開くのに失敗してエラーになっていることを確認
+
+* app コンテナに入り、Laravelインストール
+[mac] $ docker compose exec app bash
+[app] $ composer install
+[app] $ cp .env.example .env
+[app] $ php artisan key:generate
+[app] $ php artisan storage:link
+[app] $ chmod -R 777 storage bootstrap/cache
+http://127.0.0.1:8080/
+[app] $ php artisan migrate
+[app] $ exit
+[mac] $ docker compose down
+
+* MySQLクライアントツール「Sequel Ace」
+ports:
+  - 33060:3306
