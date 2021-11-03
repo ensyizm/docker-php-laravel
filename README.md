@@ -3,6 +3,7 @@
 * 参考文献
 https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
 
+* 手順
 "touch docker-compose.yml, mkdir -p infra/php, touch infra/php/Dockerfile, touch infra/php/php.ini"
 "mkdir backend, docker compose up -d --build, docker compose ps, docker compose exec app bash,php -v, composer -V, php -m, exit"
 "docker compose exec app php -v"でも確認できる
@@ -18,3 +19,9 @@ https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
 
 
 "docker compose down, docker-compose.ymlにweb設定を追記, mkdir infra/nginx, touch infra/nginx/default.conf, docker compose up -d, docker compose ps, docker compose exec web nginx -v"
+"mkdir backend/public, echo "Hello World" > backend/public/index.html, echo "<?php phpinfo();" > backend/public/phpinfo.php, rm -rf backend/*"
+http://127.0.0.1:8080/index.html
+http://127.0.0.1:8080/phpinfo.php
+
+* Laravelをインストール
+""
